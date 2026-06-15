@@ -1,11 +1,8 @@
-<?xml version='1.0' encoding='utf-8'?>
-<plugin id="admob-plus-cordova" version="1.29.0"
-    xmlns="http://apache.org/cordova/ns/plugins/1.0"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<?xml version="1.0" encoding="utf-8" standalone="no"?><plugin xmlns="http://www.phonegap.com/ns/plugins/1.0" xmlns:amazon="http://schemas.android.com/apk/lib/com.amazon.device.ads" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:rim="http://www.blackberry.com/ns/widgets" xmlns:tools="http://schemas.android.com/tools" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" id="admob-plus-cordova" version="1.29.0">
     <name>admob-plus-cordova</name>
-	<description>Plugin enables Monetization with Google AdMob banners, interstitials, rewarded video, and native ads on iOS and Android.</description>
+    <description>Plugin enables Monetization with Google AdMob banners, interstitials, rewarded video, and native ads on iOS and Android.</description>
     <js-module name="AdMob" src="www/admob.js">
-        <clobbers target="admob" />
+        <clobbers target="admob"/>
     </js-module>
 
     <engines>
@@ -15,66 +12,68 @@
     </engines>
 
     <platform name="android">
-        <preference name="APP_ID_ANDROID" default="ca-app-pub-xxx~yyy" />
-        <preference name="PLAY_SERVICES_VERSION" default="23.2.0" />
+        <preference default="ca-app-pub-xxx~yyy" name="APP_ID_ANDROID"/>
+        <preference default="23.2.0" name="PLAY_SERVICES_VERSION"/>
 
-        <config-file target="AndroidManifest.xml" parent="/manifest/application">
-            <activity android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" android:excludeFromRecents="true" android:name="com.google.android.gms.ads.AdActivity" android:noHistory="true"  android:exported="true" />
-            <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="$APP_ID_ANDROID" />
+        <config-file parent="/manifest/application" target="AndroidManifest.xml">
+            <activity android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" android:excludeFromRecents="true" android:exported="true" android:name="com.google.android.gms.ads.AdActivity" android:noHistory="true"/>
+            <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="$APP_ID_ANDROID"/>
             <meta-data android:name="com.google.android.gms.ads.DELAY_APP_MEASUREMENT_INIT" android:value="true"/>
-            <meta-data android:name="com.google.android.gms.ads.flag.OPTIMIZE_INITIALIZATION" android:value="true" />
-            <meta-data android:name="com.google.android.gms.ads.flag.OPTIMIZE_AD_LOADING" android:value="true" />
-            <meta-data android:name="com.google.android.gms.ads.flag.INTEGRATION_MANAGER" android:value="webview" />
+            <meta-data android:name="com.google.android.gms.ads.flag.OPTIMIZE_INITIALIZATION" android:value="true"/>
+            <meta-data android:name="com.google.android.gms.ads.flag.OPTIMIZE_AD_LOADING" android:value="true"/>
+            <meta-data android:name="com.google.android.gms.ads.flag.INTEGRATION_MANAGER" android:value="webview"/>
+            <property android:name="android.adservices.AD_SERVICES_CONFIG" android:resource="@xml/gma_ad_services_config" tools:replace="android:resource"/>
         </config-file>
 
-        <config-file target="res/xml/config.xml" parent="/*">
+        <config-file parent="/*" target="res/xml/config.xml">
             <feature name="AdMob">
                 <param name="android-package" value="admob.plus.cordova.AdMob"/>
             </feature>
         </config-file>
 
-        <framework src="com.google.android.gms:play-services-ads:$PLAY_SERVICES_VERSION" />
+        <framework src="com.google.android.gms:play-services-ads:$PLAY_SERVICES_VERSION"/>
 
-        <source-file src="src/android/core/util.kt" target-dir="app/src/main/kotlin/admob/plus/core" />
-        <source-file src="src/android/cordova/AdMob.kt" target-dir="app/src/main/kotlin/admob/plus/cordova" />
-        <source-file src="src/android/cordova/ExecuteContext.kt" target-dir="app/src/main/kotlin/admob/plus/cordova" />
-        <source-file src="src/android/cordova/Generated.kt" target-dir="app/src/main/kotlin/admob/plus/cordova" />
-        <source-file src="src/android/cordova/ads/AdBase.kt" target-dir="app/src/main/kotlin/admob/plus/cordova/ads" />
-        <source-file src="src/android/cordova/ads/WebViewAd.kt" target-dir="app/src/main/kotlin/admob/plus/cordova/ads" />
-        <source-file src="src/android/cordova/ads/AppOpen.kt" target-dir="app/src/main/kotlin/admob/plus/cordova/ads" />
-        <source-file src="src/android/cordova/ads/Banner.kt" target-dir="app/src/main/kotlin/admob/plus/cordova/ads" />
-        <source-file src="src/android/cordova/ads/Interstitial.kt" target-dir="app/src/main/kotlin/admob/plus/cordova/ads" />
-        <source-file src="src/android/cordova/ads/Native.kt" target-dir="app/src/main/kotlin/admob/plus/cordova/ads" />
-        <source-file src="src/android/cordova/ads/Rewarded.kt" target-dir="app/src/main/kotlin/admob/plus/cordova/ads" />
-        <source-file src="src/android/cordova/ads/RewardedInterstitial.kt" target-dir="app/src/main/kotlin/admob/plus/cordova/ads" />
+        <source-file src="src/android/core/util.kt" target-dir="app/src/main/kotlin/admob/plus/core"/>
+        <source-file src="src/android/cordova/AdMob.kt" target-dir="app/src/main/kotlin/admob/plus/cordova"/>
+        <source-file src="src/android/cordova/ExecuteContext.kt" target-dir="app/src/main/kotlin/admob/plus/cordova"/>
+        <source-file src="src/android/cordova/Generated.kt" target-dir="app/src/main/kotlin/admob/plus/cordova"/>
+        <source-file src="src/android/cordova/ads/AdBase.kt" target-dir="app/src/main/kotlin/admob/plus/cordova/ads"/>
+        <source-file src="src/android/cordova/ads/WebViewAd.kt" target-dir="app/src/main/kotlin/admob/plus/cordova/ads"/>
+        <source-file src="src/android/cordova/ads/AppOpen.kt" target-dir="app/src/main/kotlin/admob/plus/cordova/ads"/>
+        <source-file src="src/android/cordova/ads/Banner.kt" target-dir="app/src/main/kotlin/admob/plus/cordova/ads"/>
+        <source-file src="src/android/cordova/ads/Interstitial.kt" target-dir="app/src/main/kotlin/admob/plus/cordova/ads"/>
+        <source-file src="src/android/cordova/ads/Native.kt" target-dir="app/src/main/kotlin/admob/plus/cordova/ads"/>
+        <source-file src="src/android/cordova/ads/Rewarded.kt" target-dir="app/src/main/kotlin/admob/plus/cordova/ads"/>
+        <source-file src="src/android/cordova/ads/RewardedInterstitial.kt" target-dir="app/src/main/kotlin/admob/plus/cordova/ads"/>
 
-		<hook src="hooks/add-tools-namespace.js" type="after_platform_add" />
-		<hook src="hooks/fix-adactivity-manifest.js" type="after_platform_add" />
+        <hook src="hooks/add-tools-namespace.js" type="after_platform_add"/>
+        <hook src="hooks/fix-adactivity-manifest.js" type="after_platform_add"/>
+        <hook src="hooks/fix-android-manifest.js" type="after_prepare"/>
 
         <!-- AUTOGENERATED: ANDROID_BEGIN -->
         <!-- AUTOGENERATED: ANDROID_END -->
     </platform>
 
     <platform name="ios">
-        <preference name="APP_ID_IOS" default="ca-app-pub-xxx~yyy" />
-        <preference name="USAGE" default="This identifier will be used to deliver personalized ads to you." />
-        <preference name="disableSDKCrashReporting" default="false" />
+        <preference default="ca-app-pub-xxx~yyy" name="APP_ID_IOS"/>
+        <preference default="This identifier will be used to deliver personalized ads to you." name="USAGE"/>
+        <preference default="false" name="disableSDKCrashReporting"/>
 
-        <config-file target="config.xml" parent="/*">
+        <config-file parent="/*" target="config.xml">
             <feature name="AdMob">
-                <param name="ios-package" value="AMBPlugin" />
+                <param name="ios-package" value="AMBPlugin"/>
             </feature>
         </config-file>
 
-        <config-file target="*-Info.plist" parent="GADApplicationIdentifier">
+        <config-file parent="GADApplicationIdentifier" target="*-Info.plist">
             <string>$APP_ID_IOS</string>
         </config-file>
 
-        <config-file target="*-Info.plist" parent="GADDelayAppMeasurementInit">
+        <config-file parent="GADDelayAppMeasurementInit" target="*-Info.plist">
             <true/>
         </config-file>
 
-        <config-file target="*-Info.plist" parent="NSAppTransportSecurity">
+        <config-file parent="NSAppTransportSecurity" target="*-Info.plist">
             <dict>
                 <key>NSAllowsArbitraryLoads</key>
                 <true/>
@@ -85,15 +84,15 @@
             </dict>
         </config-file>
 
-        <config-file target="*-Info.plist" parent="NSUserTrackingUsageDescription">
+        <config-file parent="NSUserTrackingUsageDescription" target="*-Info.plist">
             <string>$USAGE</string>
         </config-file>
 
-        <config-file target="*-Info.plist" parent="GADIntegrationManager">
+        <config-file parent="GADIntegrationManager" target="*-Info.plist">
             <string>webview</string>
         </config-file>
 
-        <config-file target="*-Info.plist" parent="SKAdNetworkItems">
+        <config-file parent="SKAdNetworkItems" target="*-Info.plist">
             <array>
                 <dict>
                     <key>SKAdNetworkIdentifier</key>
@@ -295,40 +294,40 @@
         </config-file>
 
         <!-- AUTOGENERATED: IOS_BEGIN -->
-        <source-file src="src/ios/AMBAdBase.swift" />
-        <source-file src="src/ios/AMBAppOpenAd.swift" />
-        <source-file src="src/ios/AMBBanner.swift" />
-        <source-file src="src/ios/AMBContext.swift" />
-        <source-file src="src/ios/AMBCore.swift" />
-        <source-file src="src/ios/AMBGenerated.swift" />
-        <source-file src="src/ios/AMBInterstitial.swift" />
-        <source-file src="src/ios/AMBNativeAd.swift" />
-        <source-file src="src/ios/AMBPlugin.swift" />
-        <source-file src="src/ios/AMBRewarded.swift" />
-        <source-file src="src/ios/AMBRewardedInterstitial.swift" />
+        <source-file src="src/ios/AMBAdBase.swift"/>
+        <source-file src="src/ios/AMBAppOpenAd.swift"/>
+        <source-file src="src/ios/AMBBanner.swift"/>
+        <source-file src="src/ios/AMBContext.swift"/>
+        <source-file src="src/ios/AMBCore.swift"/>
+        <source-file src="src/ios/AMBGenerated.swift"/>
+        <source-file src="src/ios/AMBInterstitial.swift"/>
+        <source-file src="src/ios/AMBNativeAd.swift"/>
+        <source-file src="src/ios/AMBPlugin.swift"/>
+        <source-file src="src/ios/AMBRewarded.swift"/>
+        <source-file src="src/ios/AMBRewardedInterstitial.swift"/>
         <!-- AUTOGENERATED: IOS_END -->
 
-        <framework src="AppTrackingTransparency.framework" weak="true" />
+        <framework src="AppTrackingTransparency.framework" weak="true"/>
 
         <podspec>
             <config>
-                <source url="https://cdn.cocoapods.org/" />
+                <source url="https://cdn.cocoapods.org/"/>
             </config>
             <pods use-frameworks="true">
-                <pod name="Google-Mobile-Ads-SDK" spec="~> 11.6.0" />
+                <pod name="Google-Mobile-Ads-SDK" spec="~&gt; 11.6.0"/>
             </pods>
         </podspec>
     </platform>
 
     <platform name="browser">
-        <config-file target="config.xml" parent="/*">
+        <config-file parent="/*" target="config.xml">
             <feature name="AdMob">
-                <param name="browser-package" value="AdMob" />
+                <param name="browser-package" value="AdMob"/>
             </feature>
         </config-file>
 
-        <js-module src="src/browser/AdMobProxy.js" name="AdMobProxy">
-            <runs />
+        <js-module name="AdMobProxy" src="src/browser/AdMobProxy.js">
+            <runs/>
         </js-module>
     </platform>
 </plugin>
