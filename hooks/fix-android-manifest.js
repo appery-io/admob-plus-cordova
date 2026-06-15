@@ -3,6 +3,17 @@
 const fs = require('fs');
 const path = require('path');
 
+function ensureToolsNamespace(manifest) {
+    if (manifest.includes('xmlns:tools="http://schemas.android.com/tools"')) {
+        return manifest;
+    }
+
+    return manifest.replace(
+        '<manifest',
+        '<manifest xmlns:tools="http://schemas.android.com/tools"'
+    );
+}
+
 module.exports = function (context) {
     const manifestPath = path.join(
         context.opts.projectRoot,
@@ -14,15 +25,9 @@ module.exports = function (context) {
     }
 
     let manifest = fs.readFileSync(manifestPath, 'utf8');
-    let changed = false;
+    const original = manifest;
 
-    if (!manifest.includes('xmlns:tools="http://schemas.android.com/tools"')) {
-        manifest = manifest.replace(
-            '<manifest',
-            '<manifest xmlns:tools="http://schemas.android.com/tools"'
-        );
-        changed = true;
-    }
+    manifest = ensureToolsNamespace(manifest);
 
     const adActivityPattern =
         /<activity[^>]*android:name="com\.google\.android\.gms\.ads\.AdActivity"[^>]*\/?>/g;
@@ -37,7 +42,6 @@ module.exports = function (context) {
             '</application>',
             `        ${adActivityEntry}\n    </application>`
         );
-        changed = true;
     } else if (adActivities.length === 1 && !adActivities[0].includes('tools:replace')) {
         manifest = manifest.replace(
             adActivityPattern,
@@ -46,27 +50,21 @@ module.exports = function (context) {
                 '<activity tools:replace="android:exported"'
             )
         );
-        changed = true;
     }
 
     const adServicesProperty =
         '<property android:name="android.adservices.AD_SERVICES_CONFIG" android:resource="@xml/gma_ad_services_config" tools:replace="android:resource" />';
 
-    if (!manifest.includes('android.adservices.AD_SERVICES_CONFIG')) {
-        manifest = manifest.replace(
-            '</application>',
-            `        ${adServicesProperty}\n    </application>`
-        );
-        changed = true;
-    } else if (!manifest.includes('tools:replace="android:resource"')) {
-        manifest = manifest.replace(
-            /<property[^>]*android:name="android\.adservices\.AD_SERVICES_CONFIG"[^>]*\/?>/,
-            adServicesProperty
-        );
-        changed = true;
-    }
+    manifest = manifest.replace(
+        /<property[^>]*android:name="android\.adservices\.AD_SERVICES_CONFIG"[^>]*\/?>\s*/g,
+        ''
+    );
+    manifest = manifest.replace(
+        '</application>',
+        `        ${adServicesProperty}\n    </application>`
+    );
 
-    if (changed) {
+    if (manifest !== original) {
         fs.writeFileSync(manifestPath, manifest, 'utf8');
         console.log('admob-plus-cordova: updated AndroidManifest.xml for AdMob/Firebase compatibility');
     }

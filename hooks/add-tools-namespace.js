@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = function (context) {
-	console.log('fix tools namespace');
+    console.log('fix tools namespace');
     const manifestPath = path.join(context.opts.projectRoot, 'platforms/android/app/src/main/AndroidManifest.xml');
 
     if (fs.existsSync(manifestPath)) {

@@ -6,14 +6,18 @@
     </js-module>
 
     <engines>
-        <engine name="cordova" version=">=7.0.0" />
-        <engine name="cordova-android" version=">=6.0.0" />
-        <engine name="cordova-ios" version=">=5.0.0" />
+        <engine name="cordova" version="&gt;=7.0.0"/>
+        <engine name="cordova-android" version="&gt;=6.0.0"/>
+        <engine name="cordova-ios" version="&gt;=5.0.0"/>
     </engines>
 
     <platform name="android">
         <preference default="ca-app-pub-xxx~yyy" name="APP_ID_ANDROID"/>
         <preference default="23.2.0" name="PLAY_SERVICES_VERSION"/>
+
+        <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest">
+            <manifest xmlns:tools="http://schemas.android.com/tools" />
+        </edit-config>
 
         <config-file parent="/manifest/application" target="AndroidManifest.xml">
             <activity android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" android:excludeFromRecents="true" android:exported="true" android:name="com.google.android.gms.ads.AdActivity" android:noHistory="true"/>
@@ -22,7 +26,6 @@
             <meta-data android:name="com.google.android.gms.ads.flag.OPTIMIZE_INITIALIZATION" android:value="true"/>
             <meta-data android:name="com.google.android.gms.ads.flag.OPTIMIZE_AD_LOADING" android:value="true"/>
             <meta-data android:name="com.google.android.gms.ads.flag.INTEGRATION_MANAGER" android:value="webview"/>
-            <property android:name="android.adservices.AD_SERVICES_CONFIG" android:resource="@xml/gma_ad_services_config" tools:replace="android:resource"/>
         </config-file>
 
         <config-file parent="/*" target="res/xml/config.xml">
@@ -47,6 +50,7 @@
         <source-file src="src/android/cordova/ads/RewardedInterstitial.kt" target-dir="app/src/main/kotlin/admob/plus/cordova/ads"/>
 
         <hook src="hooks/add-tools-namespace.js" type="after_platform_add"/>
+        <hook src="hooks/add-tools-namespace.js" type="after_prepare"/>
         <hook src="hooks/fix-adactivity-manifest.js" type="after_platform_add"/>
         <hook src="hooks/fix-android-manifest.js" type="after_prepare"/>
 
