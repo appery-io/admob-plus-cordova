@@ -15,10 +15,6 @@
         <preference default="ca-app-pub-xxx~yyy" name="APP_ID_ANDROID"/>
         <preference default="23.2.0" name="PLAY_SERVICES_VERSION"/>
 
-        <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest">
-            <manifest xmlns:tools="http://schemas.android.com/tools" />
-        </edit-config>
-
         <config-file parent="/manifest/application" target="AndroidManifest.xml">
             <activity android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" android:excludeFromRecents="true" android:exported="true" android:name="com.google.android.gms.ads.AdActivity" android:noHistory="true"/>
             <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="$APP_ID_ANDROID"/>
